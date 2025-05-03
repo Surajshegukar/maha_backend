@@ -196,6 +196,11 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+  }
+);
+
 const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
