@@ -34,7 +34,8 @@ connectDB();
 const userSchema = new mongoose.Schema({
   name:{type: String, required:true},
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: false }, // Optional for Google users
+  googleId: { type: String, unique: true, sparse: true }, // Optional for Google users
   itineraries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Itinerary' }]
 });
 
@@ -45,11 +46,15 @@ const itinerarySchema = new mongoose.Schema({
   travelAdvisorData : { type: String },
   destination :{ type: String },
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  googleId: {
-  type: String,
-  unique: true,
-  sparse: true // Allows null values to be non-unique
-}
+  createdAt: { type: Date, default: Date.now }
+}, {
+  toJSON: {
+    transform: function (doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.__v;
+    }
+  }
 });
 
 
