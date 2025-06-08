@@ -17,8 +17,15 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const app = express();
 
 // Middleware
-app.use(cors());
+// app.use(cors());
+app.use(cors({ origin: "https://mahasafar.vercel.app", credentials: true }));
+
 app.use(express.json());
+app.use((req, res, next) => {
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    next();
+});
 
 connectDB();
 
