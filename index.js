@@ -32,7 +32,7 @@ connectDB();
 
 // User Schema
 const userSchema = new mongoose.Schema({
-  name:{type: String, required:true},
+  name:{type: String, required:false},
   email: { type: String, required: true, unique: true },
   password: { type: String, required: false }, // Optional for Google users
   googleId: { type: String, unique: true, sparse: true }, // Optional for Google users
