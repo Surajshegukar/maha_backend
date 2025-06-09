@@ -26,7 +26,13 @@ app.use(cors({
   credentials: true
 }));
 
-app.options("*", cors());
+app.options('/api/google-login', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://mahasafar.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200);
+});
 
 app.use(express.json());
 app.use((req, res, next) => {
