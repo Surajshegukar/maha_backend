@@ -18,7 +18,7 @@ const app = express();
 
 // Middleware
 // app.use(cors());
-app.use(cors({ origin: "https://mahasafar.vercel.app", credentials: true }));
+app.use(cors({ origin: ["'https://maha-backend.vercel.app",'https://mahasafar.vercel.app/','http://localhost:5001','http://localhost:5173'], credentials: true }));
 app.options("*", cors());
 
 app.use(express.json());
