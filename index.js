@@ -273,3 +273,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Base URL: http://localhost:${PORT}/api`);
 }); 
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the Maha Safar API!');
+});
