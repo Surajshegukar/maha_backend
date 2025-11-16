@@ -15,26 +15,30 @@ const { OAuth2Client } = require('google-auth-library');
 dotenv.config();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const app = express();
-app.use(cors({
-  origin: '*', // Allow requests from your frontend
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
 
-// app.options('*', cors());
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "https://mahasafar.vercel.app");
-//   res.header("Access-Control-Allow-Credentials", "true");
-//   res.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-//   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+// Middleware
+app.use(cors({ origin: ['https://maha-backend.vercel.app','https://mahasafar.vercel.app/','http://localhost:5001','http://localhost:5173'], credentials: true }));
+// app.use(cors({
+//   origin: '*', // Allow requests from your frontend
+//   methods: ['GET', 'POST', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true
+// }));
 
-//   if (req.method === "OPTIONS") {
-//     return res.sendStatus(200);
-//   }
-//   next();
-// });
+app.options('/api/google-login', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://mahasafar.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200);
+});
 
+
+app.use((req, res, next) => {
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    next();
+});
 
 app.use(express.json());
 connectDB();
