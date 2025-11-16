@@ -18,7 +18,7 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(cors({ origin: ["'https://maha-backend.vercel.app",'https://mahasafar.vercel.app/'], credentials: true }));
+app.use(cors({ origin: ['https://maha-backend.vercel.app','https://mahasafar.vercel.app/'], credentials: true }));
 // app.use(cors({
 //   origin: '*', // Allow requests from your frontend
 //   methods: ['GET', 'POST', 'OPTIONS'],
