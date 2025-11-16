@@ -22,18 +22,18 @@ app.use(cors({
   credentials: true
 }));
 
-app.options('*', cors());
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://mahasafar.vercel.app");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+// app.options('*', cors());
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "https://mahasafar.vercel.app");
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   res.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+//   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-  next();
-});
+//   if (req.method === "OPTIONS") {
+//     return res.sendStatus(200);
+//   }
+//   next();
+// });
 
 
 app.use(express.json());
