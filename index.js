@@ -18,9 +18,7 @@ const app = express();
 
 
 
-app.use(express.json());
 
-const cors = require("cors");
 
 const corsOptions = {
   origin: [
@@ -39,7 +37,7 @@ app.use(cors(corsOptions));
 // Very important for preflight on Vercel
 app.options("*", cors(corsOptions));
 
-
+app.use(express.json());
 connectDB();
 
 // User Schema
