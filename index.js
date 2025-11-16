@@ -15,12 +15,7 @@ const { OAuth2Client } = require('google-auth-library');
 dotenv.config();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const app = express();
-
-
-
-
-
-const corsOptions = {
+app.use(cors({
   origin: [
     "https://mahasafar.vercel.app",
     "http://localhost:5173",
@@ -28,14 +23,22 @@ const corsOptions = {
   ],
   credentials: true,
   methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
-// REMOVE app.use(cors())
-app.use(cors(corsOptions));
+app.options('*', cors());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://mahasafar.vercel.app");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-// Very important for preflight on Vercel
-app.options("*", cors(corsOptions));
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 
 app.use(express.json());
 connectDB();
