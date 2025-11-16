@@ -16,11 +16,7 @@ dotenv.config();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const app = express();
 app.use(cors({
-  origin: [
-    "https://mahasafar.vercel.app",
-    "http://localhost:5173",
-    "http://localhost:5001"
-  ],
+  origin: "https://mahasafar.vercel.app",
   credentials: true,
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
