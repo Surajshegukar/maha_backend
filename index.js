@@ -17,10 +17,14 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const app = express();
 
 
+
+app.use(express.json());
+
+const cors = require("cors");
+
 const corsOptions = {
   origin: [
     "https://mahasafar.vercel.app",
-    "https://maha-backend.vercel.app",
     "http://localhost:5173",
     "http://localhost:5001"
   ],
@@ -29,16 +33,12 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+// REMOVE app.use(cors())
 app.use(cors(corsOptions));
+
+// Very important for preflight on Vercel
 app.options("*", cors(corsOptions));
 
-
-app.use(express.json());
-// app.use((req, res, next) => {
-//     res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-//     res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
-//     next();
-// });
 
 connectDB();
 
